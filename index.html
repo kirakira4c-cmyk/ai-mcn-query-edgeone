@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>百度搜索场景营销 AI Copilot</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">搜</span>
+          <div>
+            <h1>Search Content Copilot</h1>
+            <p>百度搜索场景营销选题工作台</p>
+          </div>
+        </div>
+
+        <section class="library-panel">
+          <div class="section-heading">
+            <h2>素材库</h2>
+            <button class="ghost-button" id="clearLibraryBtn" type="button">清空</button>
+          </div>
+          <div class="library-list" id="libraryList"></div>
+        </section>
+      </aside>
+
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">MVP 01</p>
+            <h2>AI MCN 搜索query生成</h2>
+          </div>
+          <button class="primary-button" id="saveBtn" type="button">保存到素材库</button>
+        </header>
+
+        <section class="input-grid">
+          <form class="input-panel" id="topicForm">
+            <label>
+              热点标题
+              <input id="topicTitle" name="topicTitle" placeholder="例如：某品牌新品引发网友讨论" required />
+            </label>
+
+            <label>
+              人工方向建议（选填）
+              <textarea id="manualDirections" name="manualDirections" rows="3" placeholder="例如：冷知识 / 人物履历 / 海外热度 / 专业背景。填写后会优先按你的方向出 Query。"></textarea>
+            </label>
+
+            <fieldset class="field-group">
+              <legend>问题方向（可多选）</legend>
+              <div class="checkbox-grid direction-grid" id="questionDirectionGroup"></div>
+            </fieldset>
+
+            <fieldset class="field-group">
+              <div class="field-heading">
+                <legend>来源/链接</legend>
+                <button class="ghost-button compact" id="suggestSourceBtn" type="button">自动补充讨论入口</button>
+                <button class="ghost-button compact" id="addSourceBtn" type="button">新增来源</button>
+              </div>
+              <div class="source-list" id="sourceList"></div>
+            </fieldset>
+
+            <div class="form-row">
+              <fieldset class="field-group">
+                <legend>目标人群</legend>
+                <div class="checkbox-grid" id="audienceGroup">
+                  <label><input type="checkbox" name="audience" value="吃瓜群众" checked />吃瓜群众</label>
+                  <label><input type="checkbox" name="audience" value="理性求证" checked />理性求证</label>
+                  <label><input type="checkbox" name="audience" value="学生" />学生</label>
+                  <label><input type="checkbox" name="audience" value="家长" />家长</label>
+                  <label><input type="checkbox" name="audience" value="粉丝" />粉丝</label>
+                  <label><input type="checkbox" name="audience" value="路人" />路人</label>
+                  <label><input type="checkbox" name="audience" value="上班族" />上班族</label>
+                </div>
+              </fieldset>
+
+              <label>
+                Query 数量
+                <select id="queryCount" name="queryCount">
+                  <option value="20">20 条</option>
+                  <option value="50" selected>50 条</option>
+                  <option value="100">100 条</option>
+                </select>
+              </label>
+            </div>
+
+            <button class="primary-button full" type="submit">生成策划结果</button>
+          </form>
+
+          <section class="summary-panel" id="summaryPanel">
+            <div class="empty-state">
+              <h3>等待输入热点</h3>
+              <p>生成后会在这里看到传播价值、搜索意图、Query 和内容方向。</p>
+            </div>
+          </section>
+        </section>
+
+        <section class="mindmap-section" id="mindmapSection" hidden>
+          <div class="section-heading">
+            <div>
+              <h3>热点脑暴导图</h3>
+              <p class="score-note">单击选中，双击深入；点叉号删除不合适的话题，保留一条清晰深挖路径。</p>
+            </div>
+            <div class="toolbar-actions">
+              <button class="ghost-button" id="expandSelectedNodeBtn" type="button">展开当前</button>
+              <button class="ghost-button" id="collapseSelectedNodeBtn" type="button">折叠当前</button>
+              <button class="ghost-button" id="resetMindmapBtn" type="button">重置导图</button>
+              <div class="zoom-controls" aria-label="导图缩放">
+                <button class="ghost-button icon-compact" id="zoomOutBtn" type="button">−</button>
+                <span id="zoomValue">100%</span>
+                <button class="ghost-button icon-compact" id="zoomInBtn" type="button">+</button>
+              </div>
+            </div>
+          </div>
+          <div class="mindmap-canvas" id="mindmapCanvas">
+            <svg class="mindmap-lines" id="mindmapLines"></svg>
+            <div class="mindmap-nodes" id="mindmapNodes"></div>
+          </div>
+        </section>
+
+        <section class="result-grid" id="resultGrid" hidden>
+          <article class="result-block span-2">
+            <div class="section-heading">
+              <h3>百度搜索 Query</h3>
+              <div class="result-actions">
+                <button class="ghost-button" id="exportFeishuBtn" type="button">沉淀到飞书</button>
+                <button class="ghost-button" id="copyQueriesBtn" type="button">复制</button>
+              </div>
+            </div>
+            <p class="export-status" id="feishuExportStatus" aria-live="polite"></p>
+            <div class="query-list" id="queryList"></div>
+          </article>
+
+        </section>
+      </section>
+    </main>
+
+    <script src="./query-config.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

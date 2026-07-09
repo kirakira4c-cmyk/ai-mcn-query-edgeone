@@ -1,0 +1,13 @@
+{
+  "name": "ai-mcn-query-edgeone",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check cloud-functions/api/[[default]].js && node --check app.js && node --check query-config.js",
+    "build": "echo \"No build step required\""
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
